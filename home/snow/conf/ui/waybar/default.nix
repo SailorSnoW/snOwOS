@@ -2,7 +2,7 @@
 
 {
   programs.waybar =
-    with config;{
+    with config; {
       enable = true;
       package = pkgs.waybar;
       systemd = {
@@ -89,9 +89,13 @@
         }
       '';
       settings = [{
-        height = 35;
+        height = 45;
         layer = "top";
         position = "top";
+	exclusive = true;
+	margin-top = 10;
+	margin-right = 150;
+	margin-left = 150;
         tray = { spacing = 10; };
         modules-center = [ "clock" ];
         modules-left = [ "custom/launcher" "hyprland/workspaces" ];
@@ -146,7 +150,7 @@
           format = " ";
         };
         "custom/power" = {
-          on-click = "powermenu &";
+          on-click = "wlogout &";
           format = " ";
         };
       }];

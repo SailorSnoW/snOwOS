@@ -1,9 +1,13 @@
-{ pkgs, hyprland, hyprland-plugins,... }:
+{ pkgs, config, hyprland, hyprland-plugins,... }:
 
 let
   swww_script = import ../../../misc/swww.nix {inherit pkgs; };
 in
 {
+  imports = [
+    (import ./keybinds.nix { inherit pkgs; })
+  ];
+
   systemd.user.targets.hyprland-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
   wayland.windowManager.hyprland = {
     enable = true;
@@ -11,19 +15,18 @@ in
     systemd.enable = true;
     #plugins = [ hyprland-plugins.packages.${pkgs.system}.hyprbars ];
     settings = {
-      "$mod" = "SUPER";
-
       xwayland.force_zero_scaling = true;
 
       monitor = ",1920x1200,auto,1";
       general = {
         border_size = 2;
 
-	sensitivity = 1.00;
-	apply_sens_to_raw = 1;
 	gaps_in = 4;
 	gaps_out = 8;
         resize_on_border = true;
+	
+	"col.active_border" = "0xFF${config.colorScheme.colors.base07}";
+	"col.inactive_border" = "0xFF${config.colorScheme.colors.base00}";
 
 	layout = "master";
       };
@@ -52,8 +55,8 @@ in
 	drop_shadow = true;
 	shadow_range = 6;
 	shadow_render_power = 1;
-        #col.shadow = ;
-        #	col.shadow_inactive = "0x50000000";
+        "col.shadow" = "0x${config.colorScheme.colors.base00}";
+        "col.shadow_inactive" = "0x50000000";
         
 	blur = {
           enabled = true;
@@ -94,16 +97,5 @@ in
 	"bash ${swww_script.swww_script}/bin/swww_script \"$HOME/wallpapers\""
       ];
     };
-
-    extraConfig = ''
-      bindr = $mod, $mod_L, exec, pkill rofi || rofi -show drun -modi drun,filebrowser,run
-      bind = $mod, D, exec, pkill rofi || rofi -show drun -modi drun,filebrowser,run
-  
-      bind = $mod, Return, exec, kitty
-      bind = $mod, F, fullscreen
-      bind = $mod SHIFT, A, closewindow
-      bind = $mod, A, killactive
-      bind = $mod ALT, P, exec, wlogout
-    '';
   };
 }

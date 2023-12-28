@@ -20,7 +20,7 @@ in
     nix-colors.homeManagerModules.default
     (import ./conf/shell/zsh/default.nix { inherit pkgs; })
     (import ./conf/term/kitty/default.nix { inherit pkgs config; })
-    (import ./conf/ui/hyprland/default.nix { inherit pkgs hyprland hyprland-plugins; })
+    (import ./conf/ui/hyprland/default.nix { inherit pkgs config hyprland hyprland-plugins; })
     (import ./conf/ui/wlogout/default.nix { inherit pkgs; })
     (import ./conf/ui/waybar/default.nix { inherit pkgs hyprland lib config; })
     (import ./conf/utils/rofi/default.nix { inherit pkgs; })
@@ -52,7 +52,6 @@ in
     };
   };
 
-  # TODO: Set your username
   home = {
     username = "snow";
     homeDirectory = "/home/snow";
@@ -81,7 +80,12 @@ in
 
   # Enable home-manager and git
   programs.home-manager.enable = true;
-  programs.git.enable = true;
+
+  programs.git = {
+    enable = true;
+    userEmail = "sailorsnow@pm.me";
+    userName = "SailorSnoW";
+  };
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
