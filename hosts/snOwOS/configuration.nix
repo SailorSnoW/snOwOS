@@ -13,6 +13,8 @@
   imports = [
     # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix
+    # Include the necessary packages and configuration for Apple Silicon support.
+    ./apple-silicon-support
   ];
 
   nixpkgs = {
@@ -65,7 +67,20 @@
 
   networking.hostName = "snOwOS";
 
+  # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = false;
+
+  # Specify path to peripheral firmware files.
+  hardware.asahi.peripheralFirmwareDirectory = ./firmware;
+
+  # Remove if you get an error that an x86_64-linux builder is required.
+  hardware.asahi.pkgsSystem = "x86_64-linux";
+
+  networking.wireless.iwd = {
+    enable = true;
+    settings.General.EnableNetworkConfiguration = true;
+  };
   
   security.sudo.enable = true;
   services.blueman.enable = true;
