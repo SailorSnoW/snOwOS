@@ -74,8 +74,11 @@
   # Specify path to peripheral firmware files.
   hardware.asahi.peripheralFirmwareDirectory = ./firmware;
 
+  hardware.asahi.useExperimentalGPUDriver = true;
+  hardware.asahi.experimentalGPUInstallMode = "overlay";
+
   # Remove if you get an error that an x86_64-linux builder is required.
-  hardware.asahi.pkgsSystem = "x86_64-linux";
+  # hardware.asahi.pkgsSystem = "x86_64-linux";
 
   networking.wireless.iwd = {
     enable = true;
@@ -105,8 +108,8 @@
     };
   };
 
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
+  #sound.enable = true;
+  #hardware.pulseaudio.enable = true;
   security.rtkit.enable = true;
   virtualisation = {
     libvirtd.enable = true;
@@ -115,6 +118,8 @@
   environment.systemPackages = with pkgs; [
     greetd.tuigreet
     nodejs
+    glxinfo
+    home-manager
     blueman
     bluez
     pulseaudioFull
@@ -131,7 +136,8 @@
 
   environment.shells = with pkgs; [ zsh ];
   environment.sessionVariables.WLR_NO_HARDWARE_CURSORS = "1";
-  
+  environment.sessionVariables.WLR_RENDERER_ALLOW_SOFTWARE = "1";
+
   programs.dconf.enable = true;
 
   qt = {

@@ -17,7 +17,7 @@ in
     settings = {
       xwayland.force_zero_scaling = true;
 
-      monitor = ",1920x1200,auto,1";
+      monitor = ",preferred,auto,auto";
       general = {
         border_size = 2;
 
