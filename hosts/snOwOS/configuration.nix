@@ -75,7 +75,7 @@
   hardware.asahi.peripheralFirmwareDirectory = ./firmware;
 
   hardware.asahi.useExperimentalGPUDriver = true;
-  hardware.asahi.experimentalGPUInstallMode = "overlay";
+  hardware.asahi.experimentalGPUInstallMode = "replace";
 
   # Remove if you get an error that an x86_64-linux builder is required.
   # hardware.asahi.pkgsSystem = "x86_64-linux";
@@ -99,6 +99,8 @@
 
   # Enable zsh
   programs.zsh.enable = true;
+
+  programs.hyprland.enable = true;
 
   users.users = {
     snow = {
@@ -153,11 +155,11 @@
   
   security.polkit.enable = true;
 
-  xdg.portal.enable = true;
-  xdg.portal.extraPortals = with pkgs; [
-    xdg-desktop-portal-hyprland
-    xdg-desktop-portal-gtk
-  ];
+#  xdg.portal.enable = true;
+#  xdg.portal.extraPortals = with pkgs; [
+#    xdg-desktop-portal-hyprland
+#    xdg-desktop-portal-gtk
+#  ];
 
   services = {
     printing.enable = true;
@@ -169,6 +171,10 @@
       enable = true;
       layout = "fr";
       xkbVariant = "mac";
+     # desktopManager = {
+     #   plasma5.enable = true;
+     # };
+      displayManager.sddm.enable = true;
       libinput = {
         enable = true;
         touchpad = {

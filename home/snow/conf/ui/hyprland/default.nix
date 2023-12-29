@@ -1,4 +1,4 @@
-{ pkgs, config, hyprland, hyprland-plugins,... }:
+{ pkgs, config,... }:
 
 let
   swww_script = import ../../../misc/swww.nix {inherit pkgs; };
@@ -11,9 +11,8 @@ in
   systemd.user.targets.hyprland-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
   wayland.windowManager.hyprland = {
     enable = true;
-    package = hyprland.packages.${pkgs.system}.hyprland;
+    #package = hyprland.packages.${pkgs.system}.hyprland;
     systemd.enable = true;
-    #plugins = [ hyprland-plugins.packages.${pkgs.system}.hyprbars ];
     settings = {
       xwayland.force_zero_scaling = true;
 

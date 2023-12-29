@@ -8,11 +8,7 @@
     home-manager.url = "github:nix-community/home-manager";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nix-colors.url = "github:misterio77/nix-colors";
-    hyprland.url = "github:hyprwm/Hyprland";
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
-    };
+
     # Channels to follow
     home-manager.inputs.nixpkgs.follows = "unstable";
     nixpkgs.follows = "unstable";
@@ -22,8 +18,6 @@
     self,
     nixpkgs,
     home-manager,
-    hyprland,
-    hyprland-plugins,
     nix-colors,
     ...
   } @ inputs: let
@@ -37,7 +31,7 @@
     # NixOS configuration entrypoint
     nixosConfigurations = {
       snOwOS = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs home-manager hyprland hyprland-plugins;};
+        specialArgs = {inherit inputs outputs home-manager;};
         modules = [home-manager.nixosModule ./hosts/snOwOS/configuration.nix];
       };
     };

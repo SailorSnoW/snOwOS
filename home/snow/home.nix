@@ -20,13 +20,15 @@ in
     nix-colors.homeManagerModules.default
     (import ./conf/shell/zsh/default.nix { inherit pkgs; })
     (import ./conf/term/kitty/default.nix { inherit pkgs config; })
-    (import ./conf/ui/hyprland/default.nix { inherit pkgs config hyprland hyprland-plugins; })
+  #  (import ./conf/ui/hyprland/default.nix { inherit pkgs config; })
     (import ./conf/ui/wlogout/default.nix { inherit pkgs; })
     (import ./conf/ui/waybar/default.nix { inherit pkgs hyprland lib config; })
     (import ./conf/utils/rofi/default.nix { inherit pkgs; })
     (import ./misc/neofetch.nix { inherit pkgs lib config; })
     (import ./conf/utils/btop/default.nix { inherit pkgs; })
   ];
+
+  wayland.windowManager.hyprland.enable = true;
 
   colorScheme = nix-colors.colorSchemes.catppuccin-mocha;
 
