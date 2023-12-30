@@ -10,8 +10,9 @@ in
 
   systemd.user.targets.hyprland-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
   wayland.windowManager.hyprland = {
-    enable = true;
-    #package = hyprland.packages.${pkgs.system}.hyprland;
+   enable = true;
+   # package = hyprland.packages.${pkgs.system}.hyprland;
+   # package = pkgs.hyprland;
     systemd.enable = true;
     settings = {
       xwayland.force_zero_scaling = true;
